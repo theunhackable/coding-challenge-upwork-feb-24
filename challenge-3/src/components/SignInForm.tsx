@@ -1,17 +1,19 @@
 import { useContext, useState } from "react";
 import { validateEmail, validatePassword } from "../lib/validation";
 import Alert from "./Alert";
-import AlertContext from "../context/AlertContext";
+import AlertContext, { AlertContextType } from "../context/AlertContext";
 
 const SignInForm = () => {
+  const defaultErrors = { emailError: null, passwordError: null }
   const [errors, setErrors] = useState<{
     emailError: null | string;
     passwordError: null | string;
-  }>({ emailError: null, passwordError: null });
+  }>(defaultErrors);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const context = useContext(AlertContext)
+
+  const {setAlert} = useContext(AlertContext) as AlertContextType
 
   const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(() => e.target.value);
@@ -32,15 +34,13 @@ const SignInForm = () => {
 
     if(passwordError || emailError) {
       
-      context?.setAlert({message: 'Error occured', type: 'error'})
+      setAlert({message: 'Error occured', type: 'error'})
     } else {
+      // reset the input
       setEmail('')
       setPassword('')
-      context?.setAlert({message: 'Login successful', type: 'success'})
+      setAlert({message: 'Login successful', type: 'success'})
     }
-
-    // any api calls here
-
 
   };
 
@@ -54,6 +54,7 @@ const SignInForm = () => {
         className="border-2 p-5 mx-auto rounded-md max-w-lg"
       >
         <div className="flex flex-col gap-4">
+          
           <div>
             <label htmlFor="email">Email:</label>
             <input
@@ -88,6 +89,7 @@ const SignInForm = () => {
             )}
           </div>
         </div>
+
         <input
           disabled={email.length === 0 || password.length === 0}
           type="submit"

@@ -5,7 +5,7 @@ export type Alert = {
   type: null | string;
 }
 
-type AlertContextType = {
+export type AlertContextType = {
   alert: Alert
   setAlert: React.Dispatch<React.SetStateAction<Alert>>
 }
