@@ -1,4 +1,4 @@
-// Simple Summation Function: 
+// Simple Summation Function:
 // Write a function that takes an integer n and
 // returns the sum of all integers from 1 to n using a loop.
 
@@ -17,7 +17,6 @@ function simpleSummation(n) {
   }
   return sum;
 }
-
 
 // Recursive Summation Function:
 //  Write a recursive function to perform the same task.
@@ -53,3 +52,26 @@ function formulaSummation(n) {
   return ((n + 1) * n) / 2;
 }
 
+function main() {
+  if (process.argv.length < 3) {
+    console.error("Please provide an input argument.");
+    process.exit(1); // Exit with error code 1
+  }
+
+  // Get the input argument
+  try {
+    
+    const n = parseInt(process.argv[2]);
+    if (n) {
+      console.log("simple summation: ", simpleSummation(n));
+      console.log("recursive summation: ", recursiveSummation(n));
+      console.log("formula summation: ", formulaSummation(n));
+    } else {
+      console.log('please enter digits only.')
+    }
+  } catch(e) {
+    console.log(e.message)
+  }
+}
+
+main();
